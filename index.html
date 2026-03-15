@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Kyuties Around the World 🤎 | Birthday Project for Kyu</title>
+
+<style>
+
+body{
+font-family: Arial, sans-serif;
+background-image:url("background.jpg"); /* your image file */
+background-size:cover;
+background-position:center;
+background-attachment:fixed;
+padding:20px;
+text-align:center;
+}
+
+/* soft layer to make notes readable */
+body::before{
+content:"";
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(255,255,255,0.55);
+z-index:-1;
+}
+
+h1{
+color:#5a3e2b;
+margin-bottom:5px;
+}
+
+.subtitle{
+color:#6b4a33;
+margin-bottom:10px;
+}
+
+#counter{
+color:#6b4a33;
+margin-bottom:25px;
+font-size:16px;
+}
+
+#wall{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:22px;
+align-items:flex-start;
+}
+
+/* sticky notes */
+.note{
+padding:15px;
+min-width:180px;
+max-width:260px;
+box-shadow:4px 6px 14px rgba(0,0,0,0.25);
+transform:rotate(calc(-2deg + 4deg * var(--r)));
+font-size:14px;
+border-radius:8px;
+color:#3c2f26;
+word-wrap:break-word;
+white-space:pre-wrap;
+}
+
+/* pastel sticky note colors */
+.note:nth-child(6n){background:#FFD6E0;}
+.note:nth-child(6n+1){background:#FFF2B3;}
+.note:nth-child(6n+2){background:#D6F5D6;}
+.note:nth-child(6n+3){background:#D6E8FF;}
+.note:nth-child(6n+4){background:#EAD6FF;}
+.note:nth-child(6n+5){background:#FFE4CC;}
+
+.note b{
+display:block;
+margin-bottom:8px;
+color:#4a2d18;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>Birthday Messages for Kyu 🤎</h1>
+<p class="subtitle">Messages from Kyuties Around the World 🤎</p>
+
+<div id="counter">Loading messages…</div>
+
+<div id="wall"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+
+<script>
+
+const sheetURL="https://docs.google.com/spreadsheets/d/e/2PACX-1vTbUdGokUKpM5gV-2ZGER3Jgq2LUBiD3qFWG3Mdx9gTW53ulUBLMT2tE3KLA3HKj_YC2uVh6lkT1vmL/pub?output=csv";
+
+fetch(sheetURL)
+.then(response=>response.text())
+.then(csv=>{
+
+const data=Papa.parse(csv,{header:true}).data;
+
+let messageCount=0;
+let countries=new Set();
+
+data.forEach(row=>{
+
+if(!row) return;
+
+let name=row["Name / Username"]||"Kyutie";
+let country=row["Country"]||"";
+let message=row["Your Message / Letter"]||"";
+
+if(!message.trim()) return;
+
+messageCount++;
+
+if(country) countries.add(country);
+
+const note=document.createElement("div");
+note.className="note";
+note.style.setProperty("--r",Math.random());
+
+note.innerHTML=`
+<b>From: ${name} ${country ? "(" + country + ")" : ""}</b>
+<p>${message}</p>
+`;
+
+document.getElementById("wall").appendChild(note);
+
+});
+
+document.getElementById("counter").innerText=
+`🤎 ${messageCount} Messages from ${countries.size} Countries`;
+
+});
+
+</script>
+
+</body>
+</html>
