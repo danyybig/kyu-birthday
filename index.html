@@ -111,9 +111,9 @@ data.forEach(row=>{
 
 if(!row) return;
 
-let name=row["Name / Username"]||"Kyutie";
-let country=row["Country"]||"";
-let message=row["Your Message / Letter"]||"";
+let name = row[Object.keys(row)[1]] || "Kyutie";
+let country = row[Object.keys(row)[2]] || "";
+let message = row[Object.keys(row)[3]] || "";
 
 if(!message.trim()) return;
 
