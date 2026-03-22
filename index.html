@@ -16,7 +16,7 @@ padding:20px;
 text-align:center;
 }
 
-/* soft layer so notes stay readable */
+/* soft background layer */
 
 body::before{
 content:"";
@@ -28,8 +28,6 @@ height:100%;
 background:rgba(255,255,255,0.55);
 z-index:-1;
 }
-
-/* titles */
 
 h1{
 color:#5a3e2b;
@@ -47,23 +45,22 @@ margin-bottom:25px;
 font-size:16px;
 }
 
-/* sticky wall layout */
+/* MASONRY WALL (no vertical gaps) */
 
 #wall{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:28px;
-align-items:flex-start;
+column-width:240px;
+column-gap:22px;
 max-width:1200px;
 margin:auto;
 }
 
-/* sticky notes */
+/* notes */
 
 .note{
+display:inline-block;
+width:100%;
 padding:15px;
-width:240px;
+margin-bottom:22px;
 box-shadow:4px 6px 14px rgba(0,0,0,0.25);
 transform:rotate(calc(-2deg + 4deg * var(--r)));
 font-size:14px;
@@ -78,7 +75,7 @@ transition:transform 0.2s ease;
 transform:rotate(calc(-2deg + 4deg * var(--r))) scale(1.05);
 }
 
-/* pastel note colors */
+/* pastel colors */
 
 .note:nth-child(6n){background:#FFD6E0;}
 .note:nth-child(6n+1){background:#FFF2B3;}
@@ -109,8 +106,6 @@ line-height:1.7;
 color:#5a3e2b;
 }
 
-/* credit */
-
 .credit{
 margin-top:25px;
 font-size:14px;
@@ -136,13 +131,9 @@ transform:translateY(100vh);
 opacity:0;
 }
 
-20%{
-opacity:0.5;
-}
+20%{opacity:0.5;}
 
-80%{
-opacity:0.5;
-}
+80%{opacity:0.5;}
 
 100%{
 transform:translateY(-10vh);
@@ -200,7 +191,7 @@ document.body.appendChild(star);
 
 }
 
-/* google sheet messages */
+/* load messages */
 
 const sheetURL="https://docs.google.com/spreadsheets/d/e/2PACX-1vTbUdGokUKpM5gV-2ZGER3Jgq2LUBiD3qFWG3Mdx9gTW53ulUBLMT2tE3KLA3HKj_YC2uVh6lkT1vmL/pub?output=csv";
 
@@ -250,8 +241,6 @@ document.getElementById("counter").innerText =
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <script>
-
-/* confetti when page opens */
 
 window.addEventListener("load", () => {
 
