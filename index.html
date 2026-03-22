@@ -112,6 +112,34 @@ color:#6b4a33;
 opacity:0.9;
 }
 
+/* floating stars */
+
+.star{
+position:fixed;
+color:#cfcfcf;
+opacity:0.5;
+font-size:14px;
+animation:floatStar linear infinite;
+pointer-events:none;
+}
+
+@keyframes floatStar{
+0%{
+transform:translateY(100vh);
+opacity:0;
+}
+20%{
+opacity:0.5;
+}
+80%{
+opacity:0.5;
+}
+100%{
+transform:translateY(-10vh);
+opacity:0;
+}
+}
+
 </style>
 </head>
 
@@ -138,12 +166,28 @@ May the year ahead be full of good moments, growth and many reasons to smile.
 <div class="credit">
 Project by Lily – @danyybig  
 <br>
-Thank you to all the Kyuties who participated and made this project possible<3
+Thank you to all the Kyuties who participated and made this project possible &lt;3
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 
 <script>
+
+/* floating stars */
+
+for(let i=0;i<25;i++){
+
+let star=document.createElement("div");
+star.className="star";
+star.innerHTML="★";
+
+star.style.left=Math.random()*100+"vw";
+star.style.animationDuration=(10+Math.random()*15)+"s";
+star.style.fontSize=(10+Math.random()*10)+"px";
+
+document.body.appendChild(star);
+
+}
 
 const sheetURL="https://docs.google.com/spreadsheets/d/e/2PACX-1vTbUdGokUKpM5gV-2ZGER3Jgq2LUBiD3qFWG3Mdx9gTW53ulUBLMT2tE3KLA3HKj_YC2uVh6lkT1vmL/pub?output=csv";
 
@@ -185,6 +229,23 @@ document.getElementById("wall").appendChild(note);
 
 document.getElementById("counter").innerText=
 `🤎 ${messageCount} Messages from ${countries.size} Countries`;
+
+});
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<script>
+
+window.addEventListener("load", () => {
+
+confetti({
+particleCount:120,
+spread:80,
+origin:{y:0.6},
+colors:["#d8b28c","#a67854","#f3e1c8"]
+});
 
 });
 
