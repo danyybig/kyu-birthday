@@ -87,27 +87,11 @@ margin-bottom:8px;
 color:#4a2d18;
 }
 
-/* map section */
-
-.map-title{
-margin-top:60px;
-color:#5a3e2b;
-}
-
-#map{
-height:380px;
-max-width:850px;
-margin:25px auto;
-border-radius:16px;
-box-shadow:0 6px 18px rgba(0,0,0,0.15);
-filter:saturate(0.85) brightness(0.95);
-}
-
 /* ending message */
 
 .ending{
 margin-top:60px;
-padding:30px;
+padding:28px;
 background:#fff6ef;
 border-radius:14px;
 max-width:650px;
@@ -119,65 +103,51 @@ line-height:1.7;
 color:#5a3e2b;
 }
 
+/* credit section */
+
+.credit{
+margin-top:25px;
+font-size:14px;
+color:#6b4a33;
+opacity:0.9;
+}
+
 </style>
-
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-
 </head>
 
 <body>
 
-<h1>⭐ Birthday Messages for Kyu ⭐</h1>
-<p class="subtitle">Messages from Kyuties Around the World 🤎</p>
+<h1>Birthday Messages for Kyu 🤎</h1>
+<p class="subtitle">Messages from Kyuties Around the World</p>
 
 <div id="counter">Loading messages…</div>
 
 <div id="wall"></div>
 
-<h2 class="map-title">🌍 Kyuties Around the World</h2>
-<div id="map"></div>
-
 <div class="ending">
-⭐ To Kyu ⭐
 
-From Kyuties all around the world 🌍
+To Kyu,
 
-These messages are a small reminder of how loved you are.
+These messages come from Kyuties across the world who wanted to share a little love with you.
 
-Thank you for your music, your hard work, and the happiness you bring to us.
+Thank you for your music, your effort, and the joy you bring to so many people.
 
-Happy 20th Birthday Kyu 🤎
+Wishing you a warm and happy 20th birthday.  
+May the year ahead be full of good moments, growth, and many reasons to smile.
 
-Keep shining like the stars you love ⭐
+</div>
+
+<div class="credit">
+Project by Lily – @danyybig  
+<br>
+Thank you to all the Kyuties who helped make this project special by participating.
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <script>
 
-/* confetti on page open */
-
-window.onload=()=>{
-confetti({
-particleCount:120,
-spread:90,
-origin:{y:0.6}
-});
-};
-
 const sheetURL="https://docs.google.com/spreadsheets/d/e/2PACX-1vTbUdGokUKpM5gV-2ZGER3Jgq2LUBiD3qFWG3Mdx9gTW53ulUBLMT2tE3KLA3HKj_YC2uVh6lkT1vmL/pub?output=csv";
-
-const map=L.map('map',{
-zoomControl:false,
-scrollWheelZoom:false
-}).setView([25,10],2);
-
-L.tileLayer(
-'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
-{attribution:''}
-).addTo(map);
 
 fetch(sheetURL)
 .then(response=>response.text())
@@ -215,25 +185,8 @@ document.getElementById("wall").appendChild(note);
 
 });
 
-/* update counter */
-
 document.getElementById("counter").innerText=
 `🤎 ${messageCount} Messages from ${countries.size} Countries`;
-
-/* add subtle map markers */
-
-countries.forEach(country=>{
-
-L.circleMarker([20,0],{
-radius:6,
-color:"#6b4a33",
-fillColor:"#a67854",
-fillOpacity:0.7
-})
-.addTo(map)
-.bindPopup("⭐ Kyutie from "+country);
-
-});
 
 });
 
