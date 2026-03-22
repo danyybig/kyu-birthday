@@ -16,7 +16,7 @@ padding:20px;
 text-align:center;
 }
 
-/* soft background layer */
+/* soft overlay */
 
 body::before{
 content:"";
@@ -28,6 +28,8 @@ height:100%;
 background:rgba(255,255,255,0.55);
 z-index:-1;
 }
+
+/* titles */
 
 h1{
 color:#5a3e2b;
@@ -45,22 +47,21 @@ margin-bottom:25px;
 font-size:16px;
 }
 
-/* MASONRY WALL (no vertical gaps) */
+/* masonry grid */
 
 #wall{
-column-width:250px;
-column-gap:30px;
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+grid-auto-rows:10px;
+gap:28px;
 max-width:1200px;
 margin:auto;
 }
 
-/* notes */
+/* sticky notes */
 
 .note{
-display:inline-block;
-width:100%;
 padding:15px;
-margin-bottom:30px;
 box-shadow:4px 6px 14px rgba(0,0,0,0.25);
 transform:rotate(calc(-2deg + 4deg * var(--r)));
 font-size:14px;
@@ -105,6 +106,8 @@ font-size:16px;
 line-height:1.7;
 color:#5a3e2b;
 }
+
+/* credit */
 
 .credit{
 margin-top:25px;
@@ -191,7 +194,7 @@ document.body.appendChild(star);
 
 }
 
-/* load messages */
+/* load google sheet */
 
 const sheetURL="https://docs.google.com/spreadsheets/d/e/2PACX-1vTbUdGokUKpM5gV-2ZGER3Jgq2LUBiD3qFWG3Mdx9gTW53ulUBLMT2tE3KLA3HKj_YC2uVh6lkT1vmL/pub?output=csv";
 
@@ -208,9 +211,9 @@ data.forEach(row=>{
 
 if(!row) return;
 
-let name = row[Object.keys(row)[1]] || "Kyutie";
-let country = row[Object.keys(row)[2]] || "";
-let message = row[Object.keys(row)[3]] || "";
+let name=row[Object.keys(row)[1]] || "Kyutie";
+let country=row[Object.keys(row)[2]] || "";
+let message=row[Object.keys(row)[3]] || "";
 
 if(!message.trim()) return;
 
@@ -234,7 +237,30 @@ document.getElementById("wall").appendChild(note);
 document.getElementById("counter").innerText =
 `🤎 ${messageCount} Messages from ${countries.size} Countries`;
 
+resizeAllNotes();
+
 });
+
+/* masonry height fix */
+
+function resizeAllNotes(){
+
+const notes=document.querySelectorAll(".note");
+const rowHeight=10;
+const rowGap=28;
+
+notes.forEach(note=>{
+
+const height=note.getBoundingClientRect().height;
+const span=Math.ceil((height+rowGap)/(rowHeight+rowGap));
+
+note.style.gridRowEnd="span "+span;
+
+});
+
+}
+
+window.addEventListener("resize",resizeAllNotes);
 
 </script>
 
@@ -242,7 +268,7 @@ document.getElementById("counter").innerText =
 
 <script>
 
-window.addEventListener("load", () => {
+window.addEventListener("load",()=>{
 
 confetti({
 particleCount:120,
