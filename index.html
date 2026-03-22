@@ -16,7 +16,7 @@ padding:20px;
 text-align:center;
 }
 
-/* soft layer so text is readable */
+/* soft layer so notes stay readable */
 
 body::before{
 content:"";
@@ -47,12 +47,15 @@ margin-bottom:25px;
 font-size:16px;
 }
 
-/* responsive masonry layout */
+/* sticky wall layout */
 
 #wall{
-column-width:260px;
-column-gap:22px;
-max-width:1100px;
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:28px;
+align-items:flex-start;
+max-width:1200px;
 margin:auto;
 }
 
@@ -60,6 +63,7 @@ margin:auto;
 
 .note{
 padding:15px;
+width:240px;
 box-shadow:4px 6px 14px rgba(0,0,0,0.25);
 transform:rotate(calc(-2deg + 4deg * var(--r)));
 font-size:14px;
@@ -68,13 +72,10 @@ color:#3c2f26;
 word-wrap:break-word;
 white-space:pre-wrap;
 transition:transform 0.2s ease;
-display:inline-block;
-width:100%;
-margin-bottom:22px;
 }
 
 .note:hover{
-transform:scale(1.05);
+transform:rotate(calc(-2deg + 4deg * var(--r))) scale(1.05);
 }
 
 /* pastel note colors */
@@ -155,7 +156,7 @@ opacity:0;
 
 <body>
 
-<h1>Happy Birthday Kyu 🤎</h1>
+<h1>Birthday Messages for Kyu 🤎</h1>
 <p class="subtitle">Messages from Kyuties Around the World</p>
 
 <div id="counter">Loading messages…</div>
@@ -250,7 +251,7 @@ document.getElementById("counter").innerText =
 
 <script>
 
-/* confetti when page loads */
+/* confetti when page opens */
 
 window.addEventListener("load", () => {
 
